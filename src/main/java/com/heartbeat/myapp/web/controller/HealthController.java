@@ -1,4 +1,4 @@
-package com.example.myapp.web.controller;
+package com.heartbeat.myapp.web.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
