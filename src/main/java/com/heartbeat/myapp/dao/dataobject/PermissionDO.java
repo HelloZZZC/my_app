@@ -1,7 +1,10 @@
 package com.heartbeat.myapp.dao.dataobject;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
 public class PermissionDO extends BaseDO implements Serializable {
 
     /**
