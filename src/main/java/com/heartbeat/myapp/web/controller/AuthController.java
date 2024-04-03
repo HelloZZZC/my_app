@@ -19,6 +19,6 @@ public class AuthController {
 
     @PostMapping(value = "/login")
     public ResponseUtil<String> login(@RequestBody @Validated LoginParam loginParam) {
-        return ResponseUtil.success("sss");
+        return ResponseUtil.success(authService.login(loginParam));
     }
 }
