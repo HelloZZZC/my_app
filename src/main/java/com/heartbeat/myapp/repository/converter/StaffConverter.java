@@ -3,6 +3,7 @@ package com.heartbeat.myapp.repository.converter;
 import com.heartbeat.myapp.dao.dataobject.StaffDO;
 import com.heartbeat.myapp.domain.model.Staff;
 import com.heartbeat.myapp.dp.identifier.StaffId;
+import com.heartbeat.myapp.enums.StaffStatusEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +16,7 @@ public class StaffConverter {
               staffDO.getEmail(),
               staffDO.getAvatar(),
               staffDO.getGender(),
-              staffDO.getStatus(),
+              StaffStatusEnum.toEnum(staffDO.getStatus()),
               staffDO.getRoleId(),
               staffDO.getDepartmentId(),
               staffDO.getCreatorId(),

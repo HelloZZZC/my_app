@@ -1,6 +1,8 @@
 package com.heartbeat.myapp.domain.model;
 
 import com.heartbeat.myapp.dp.identifier.StaffId;
+import com.heartbeat.myapp.enums.DeletedEnum;
+import com.heartbeat.myapp.enums.StaffStatusEnum;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -19,7 +21,7 @@ public class Staff implements Serializable {
 
     private final Integer gender;
 
-    private final Integer status;
+    private final StaffStatusEnum status;
 
     private final Integer roleId;
 
@@ -41,7 +43,7 @@ public class Staff implements Serializable {
             String email,
             String avatar,
             Integer gender,
-            Integer status,
+            StaffStatusEnum status,
             Integer roleId,
             Integer departmentId,
             Integer creatorId,
@@ -63,7 +65,14 @@ public class Staff implements Serializable {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.isDeleted = isDeleted;
+
+        if (this.isDeleted.equals(DeletedEnum.DELETED.getValue())) {
+            throw new RuntimeException();
+        }
     }
 
-    
+
+    public Boolean isEmployment() {
+        return this.status.equals(StaffStatusEnum.EMPLOYMENT);
+    }
 }

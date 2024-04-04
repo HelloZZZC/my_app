@@ -58,14 +58,11 @@ public class Account implements Serializable {
     /**
      * @param checkPassword 待校验的密码
      */
-    public void verifyPassword(Password checkPassword) {
-        boolean isRight = BCrypt.checkpw(
+    public Boolean verifyPassword(Password checkPassword) {
+        return BCrypt.checkpw(
                 this.password.getValue(),
                 checkPassword.hash(this.salt).getValue()
         );
-        if (!isRight) {
-            throw new RuntimeException();
-        }
     }
 
     private Boolean isDeleted() {

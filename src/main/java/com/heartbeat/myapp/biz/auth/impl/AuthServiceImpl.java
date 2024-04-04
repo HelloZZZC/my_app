@@ -7,6 +7,7 @@ import com.heartbeat.myapp.dp.Password;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.repository.AccountRepository;
 import com.heartbeat.myapp.repository.StaffRepository;
+import com.heartbeat.myapp.util.JwtUtil;
 import com.heartbeat.myapp.web.param.LoginParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,15 @@ public class AuthServiceImpl implements AuthService {
         if (ObjectUtils.isEmpty(account)) {
             throw new RuntimeException();
         }
-        account.verifyPassword(new Password(param.getPassword()));
+        Boolean isRight = account.verifyPassword(new Password(param.getPassword()));
+        if (!isRight) {
+            throw new RuntimeException();
+        }
         Staff staff = staffRepository.get(new StaffId(account.getStaffId()));
+        if (!staff.isEmployment()) {
+            throw new RuntimeException();
+        }
 
-        // 校验通过则jwt创建token
-
-        return "token";
+        return JwtUtil.generate(staff.getId().getValue(), "");
     }
 }
