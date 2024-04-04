@@ -1,4 +1,69 @@
 package com.heartbeat.myapp.domain.model;
 
-public class Staff {
+import com.heartbeat.myapp.dp.identifier.StaffId;
+import lombok.Getter;
+
+import java.io.Serializable;
+import java.util.Date;
+
+@Getter
+public class Staff implements Serializable {
+
+    private final StaffId id;
+
+    private final String nickname;
+
+    private final String email;
+
+    private final String avatar;
+
+    private final Integer gender;
+
+    private final Integer status;
+
+    private final Integer roleId;
+
+    private final Integer departmentId;
+
+    private final Integer creatorId;
+
+    private final Integer operatorId;
+
+    private final Date createTime;
+
+    private final Date updateTime;
+
+    private final Integer isDeleted;
+
+    public Staff(
+            StaffId id,
+            String nickname,
+            String email,
+            String avatar,
+            Integer gender,
+            Integer status,
+            Integer roleId,
+            Integer departmentId,
+            Integer creatorId,
+            Integer operatorId,
+            Date createTime,
+            Date updateTime,
+            Integer isDeleted
+    ) {
+        this.id = id;
+        this.nickname = nickname;
+        this.email = email;
+        this.avatar = avatar;
+        this.gender = gender;
+        this.status = status;
+        this.roleId = roleId;
+        this.departmentId = departmentId;
+        this.creatorId = creatorId;
+        this.operatorId = operatorId;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.isDeleted = isDeleted;
+    }
+
+    
 }

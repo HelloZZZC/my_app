@@ -1,30 +1,21 @@
 package com.heartbeat.myapp.dp;
 
+import lombok.Getter;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.Serializable;
 
+@Getter
 public class Password implements Serializable {
 
     private String value;
 
-    private static final int SALT_ROUNDS = 10; // 盐的强度
-
-    public Password(String value) {
+     public Password(String value) {
         this.value = value;
     }
 
-    public Password hash() {
-        this.value = BCrypt.hashpw(this.value, BCrypt.gensalt(SALT_ROUNDS));
+    public Password hash(Salt salt) {
+        this.value = BCrypt.hashpw(this.value, salt.getValue());
         return this;
-    }
-
-    public Password hash(String salt) {
-        this.value = BCrypt.hashpw(this.value, salt);
-        return this;
-    }
-
-    public String getPassword() {
-        return this.value;
     }
 }

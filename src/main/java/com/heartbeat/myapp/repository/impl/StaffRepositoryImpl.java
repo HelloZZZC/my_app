@@ -6,6 +6,7 @@ import com.heartbeat.myapp.dao.mapper.StaffMapper;
 import com.heartbeat.myapp.domain.model.Staff;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.repository.StaffRepository;
+import com.heartbeat.myapp.repository.converter.StaffConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,8 @@ public class StaffRepositoryImpl implements StaffRepository {
     @Autowired
     private StaffMapper staffMapper;
 
+    @Autowired
+    private StaffConverter staffConverter;
 
     @Override
     public Staff get(StaffId staffId) {
@@ -22,6 +25,6 @@ public class StaffRepositoryImpl implements StaffRepository {
         queryWrapper.eq(StaffDO::getId, staffId.getValue());
         StaffDO staffDO = staffMapper.selectOne(queryWrapper);
 
-        return new Staff();
+        return staffConverter.toStaff(staffDO);
     }
 }
