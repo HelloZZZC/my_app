@@ -18,3 +18,7 @@ spring:
         transportMode: "NIO"
 server:
   port: 8080
+
+jwt:
+  ttl: 1800
+  salt: J2i5W35FvjhxjLPR
