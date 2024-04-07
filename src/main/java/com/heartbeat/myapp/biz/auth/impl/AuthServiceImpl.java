@@ -42,8 +42,8 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException();
         }
         String token = JwtUtil.generate(staff.getId().getValue());
-        String CacheKey = String.format(AuthConstant.STAFF_TOKEN_FORMAT, token);
-        redissonCacheUtil.set(CacheKey, staff.getId().getValue(), JwtUtil.getTtl());
+        String CacheKey = String.format(AuthConstant.STAFF_TOKEN_FORMAT, staff.getId().getValue());
+        redissonCacheUtil.set(CacheKey, token, JwtUtil.getTtl());
 
         return token;
     }

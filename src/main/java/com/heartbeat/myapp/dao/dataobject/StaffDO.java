@@ -1,16 +1,23 @@
 package com.heartbeat.myapp.dao.dataobject;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
+@TableName(value = "staffs")
 public class StaffDO extends BaseDO implements Serializable {
 
     /**
      * 昵称
      */
     private String nickname;
+
+    /**
+     * 真名
+     */
+    private String realName;
 
     /**
      * 邮箱

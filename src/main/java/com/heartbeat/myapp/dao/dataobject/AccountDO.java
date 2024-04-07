@@ -1,10 +1,12 @@
 package com.heartbeat.myapp.dao.dataobject;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
+@TableName(value = "accounts")
 public class AccountDO extends BaseDO implements Serializable {
 
     /**
