@@ -59,10 +59,7 @@ public class Account implements Serializable {
      * @param checkPassword 待校验的密码
      */
     public Boolean verifyPassword(Password checkPassword) {
-        return BCrypt.checkpw(
-                this.password.getValue(),
-                checkPassword.hash(this.salt).getValue()
-        );
+        return BCrypt.checkpw(checkPassword.getValue(), this.password.getValue());
     }
 
     private Boolean isDeleted() {

@@ -21,10 +21,7 @@ public class StaffRepositoryImpl implements StaffRepository {
 
     @Override
     public Staff get(StaffId staffId) {
-        LambdaQueryWrapper<StaffDO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(StaffDO::getId, staffId.getValue());
-        StaffDO staffDO = staffMapper.selectOne(queryWrapper);
-
+        StaffDO staffDO = staffMapper.selectById(staffId.getValue());
         return staffConverter.toStaff(staffDO);
     }
 }
