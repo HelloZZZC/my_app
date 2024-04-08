@@ -17,6 +17,12 @@
         <java.version>21</java.version>
         <java-jwt.version>3.11.0</java-jwt.version>
         <shiro.version>3.11.0</shiro.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mysql-connector.version>8.0.33</mysql-connector.version>
+        <redisson.version>3.27.2</redisson.version>
+        <validation-starter.version>3.1.0</validation-starter.version>
+        <jbcrypt.version>0.4</jbcrypt.version>
+        <druid-starter.version>1.2.20</druid-starter.version>
     </properties>
     <dependencies>
         <dependency>
@@ -40,12 +46,12 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-            <version>3.5.5</version>
+            <version>${mybatis-plus.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
+            <version>${mysql-connector.version}</version>
         </dependency>
         <dependency>
             <groupId>com.auth0</groupId>
@@ -59,7 +65,7 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.27.2</version>
+            <version>${redisson.version}</version>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.apache.shiro</groupId>-->
@@ -69,17 +75,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <version>3.1.0</version>
+            <version>${validation-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
+            <version>${jbcrypt.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.20</version>
+            <version>${druid-starter.version}</version>
         </dependency>
     </dependencies>
 
