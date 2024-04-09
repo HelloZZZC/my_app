@@ -1,6 +1,6 @@
-package com.heartbeat.myapp.biz.auth.impl;
+package com.heartbeat.myapp.biz.impl;
 
-import com.heartbeat.myapp.biz.auth.AuthService;
+import com.heartbeat.myapp.biz.AuthService;
 import com.heartbeat.myapp.constant.AuthConstant;
 import com.heartbeat.myapp.domain.model.Account;
 import com.heartbeat.myapp.domain.model.Staff;

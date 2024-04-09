@@ -23,6 +23,7 @@
         <validation-starter.version>3.1.0</validation-starter.version>
         <jbcrypt.version>0.4</jbcrypt.version>
         <druid-starter.version>1.2.20</druid-starter.version>
+        <shiro-starter.version>2.0.0</shiro-starter.version>
     </properties>
     <dependencies>
         <dependency>
@@ -67,11 +68,11 @@
             <artifactId>redisson-spring-boot-starter</artifactId>
             <version>${redisson.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shiro</groupId>-->
-<!--            <artifactId>shiro-spring-boot-starter</artifactId>-->
-<!--            <version>2.0.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring-boot-starter</artifactId>
+            <version>${shiro-starter.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>

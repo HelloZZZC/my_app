@@ -1,6 +1,5 @@
 package com.heartbeat.myapp.repository.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.heartbeat.myapp.dao.dataobject.StaffDO;
 import com.heartbeat.myapp.dao.mapper.StaffMapper;
 import com.heartbeat.myapp.domain.model.Staff;

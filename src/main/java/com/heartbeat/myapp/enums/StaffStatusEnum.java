@@ -1,7 +1,10 @@
 package com.heartbeat.myapp.enums;
 
+import lombok.Getter;
+
 import java.util.stream.Stream;
 
+@Getter
 public enum StaffStatusEnum {
     /**
      * 在职
@@ -17,10 +20,6 @@ public enum StaffStatusEnum {
 
     StaffStatusEnum(Integer value) {
         this.value = value;
-    }
-
-    public Integer getValue() {
-        return this.value;
     }
 
     public static StaffStatusEnum toEnum (Integer value) {

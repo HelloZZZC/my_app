@@ -1,4 +1,4 @@
-package com.heartbeat.myapp.biz.auth;
+package com.heartbeat.myapp.biz;
 
 import com.heartbeat.myapp.web.param.LoginParam;
 

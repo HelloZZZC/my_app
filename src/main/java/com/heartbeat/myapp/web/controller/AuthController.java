@@ -1,6 +1,6 @@
 package com.heartbeat.myapp.web.controller;
 
-import com.heartbeat.myapp.biz.auth.AuthService;
+import com.heartbeat.myapp.biz.AuthService;
 import com.heartbeat.myapp.util.ResponseUtil;
 import com.heartbeat.myapp.web.param.LoginParam;
 import org.springframework.beans.factory.annotation.Autowired;
