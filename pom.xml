@@ -24,8 +24,8 @@
         <jbcrypt.version>0.4</jbcrypt.version>
         <druid-starter.version>1.2.20</druid-starter.version>
         <shiro-starter.version>2.0.0</shiro-starter.version>
-        <fastjson.version>1.2.76</fastjson.version>
-        <guava.version>30.0-jre</guava.version>
+        <fastjson.version>2.0.48</fastjson.version>
+        <guava.version>33.0.0-jre</guava.version>
     </properties>
     <dependencies>
         <dependency>
