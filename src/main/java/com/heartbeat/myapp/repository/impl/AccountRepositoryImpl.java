@@ -14,26 +14,26 @@ import org.springframework.stereotype.Repository;
 public class AccountRepositoryImpl implements AccountRepository {
 
     @Autowired
-    private AccountMapper accountMapper;
+    private AccountMapper mapper;
 
     @Autowired
-    private AccountConverter accountConverter;
+    private AccountConverter converter;
 
     @Override
     public Account get(AccountId accountId) {
         LambdaQueryWrapper<AccountDO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(AccountDO::getId, accountId.getValue());
-        AccountDO accountDO = accountMapper.selectOne(queryWrapper);
+        AccountDO accountDO = mapper.selectOne(queryWrapper);
 
-        return accountConverter.toAccount(accountDO);
+        return converter.toAccount(accountDO);
     }
 
     @Override
     public Account getByUsername(String username) {
         LambdaQueryWrapper<AccountDO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(AccountDO::getUsername, username);
-        AccountDO accountDO = accountMapper.selectOne(queryWrapper);
+        AccountDO accountDO = mapper.selectOne(queryWrapper);
 
-        return accountConverter.toAccount(accountDO);
+        return converter.toAccount(accountDO);
     }
 }

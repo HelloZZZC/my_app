@@ -4,10 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Data
-public class RoleDTO implements Serializable {
+public class PermissionDTO implements Serializable {
 
     private Integer id;
 
@@ -17,11 +16,9 @@ public class RoleDTO implements Serializable {
 
     private String about;
 
-    private List<PermissionDTO> permissions;
+    private Integer creatorId;
 
-    private StaffDTO creator;
-
-    private StaffDTO operator;
+    private Integer operatorId;
 
     private Date createTime;
 

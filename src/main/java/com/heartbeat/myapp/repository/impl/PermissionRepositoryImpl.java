@@ -17,10 +17,10 @@ import java.util.List;
 public class PermissionRepositoryImpl  implements PermissionRepository {
 
     @Autowired
-    private PermissionMapper permissionMapper;
+    private PermissionMapper mapper;
 
     @Autowired
-    private PermissionConverter permissionConverter;
+    private PermissionConverter converter;
 
     @Override
     public List<Permission> findBy(List<PermissionId> permissionIds) {
@@ -28,8 +28,8 @@ public class PermissionRepositoryImpl  implements PermissionRepository {
         queryWrapper.in(PermissionDO::getId, permissionIds);
         queryWrapper.eq(PermissionDO::getIsDeleted, DeletedEnum.NOT_DELETED.getValue());
 
-        List<PermissionDO> permissionDOList = permissionMapper.selectList(queryWrapper);
+        List<PermissionDO> permissionDOList = mapper.selectList(queryWrapper);
 
-        return permissionConverter.toPermissionList(permissionDOList);
+        return converter.toPermissionList(permissionDOList);
     }
 }

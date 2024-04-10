@@ -1,26 +1,56 @@
 package com.heartbeat.myapp.domain.model;
 
 import com.heartbeat.myapp.dp.identifier.PermissionId;
+import com.heartbeat.myapp.enums.DeletedEnum;
+import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Permission {
+@Getter
+public class Permission implements Serializable {
 
-    private PermissionId id;
+    private final PermissionId id;
 
-    private String title;
+    private final String title;
 
-    private String code;
+    private final String code;
 
-    private String about;
+    private final String about;
 
-    private Integer creatorId;
+    private final Integer creatorId;
 
-    private Integer operatorId;
+    private final Integer operatorId;
 
-    private Date createTime;
+    private final Date createTime;
 
-    private Date updateTime;
+    private final Date updateTime;
 
-    private Integer isDeleted;
+    private final Integer isDeleted;
+
+    public Permission(
+            PermissionId id,
+            String title,
+            String code,
+            String about,
+            Integer creatorId,
+            Integer operatorId,
+            Date createTime,
+            Date updateTime,
+            Integer isDeleted
+    ) {
+        this.id = id;
+        this.title = title;
+        this.code = code;
+        this.about = about;
+        this.creatorId = creatorId;
+        this.operatorId = operatorId;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.isDeleted = isDeleted;
+
+        if (this.isDeleted.equals(DeletedEnum.DELETED.getValue())) {
+            throw new RuntimeException();
+        }
+    }
 }

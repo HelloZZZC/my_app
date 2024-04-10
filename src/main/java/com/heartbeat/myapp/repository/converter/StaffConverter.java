@@ -9,21 +9,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class StaffConverter {
 
+    /**
+     * @param staffDO 职员DO
+     * @return 职员实体
+     */
     public Staff toStaff(StaffDO staffDO) {
         return new Staff(
-              new StaffId(staffDO.getId()),
-              staffDO.getNickname(),
-              staffDO.getEmail(),
-              staffDO.getAvatar(),
-              staffDO.getGender(),
-              StaffStatusEnum.toEnum(staffDO.getStatus()),
-              staffDO.getRoleId(),
-              staffDO.getDepartmentId(),
-              staffDO.getCreatorId(),
-              staffDO.getOperatorId(),
-              staffDO.getCreateTime(),
-              staffDO.getUpdateTime(),
-              staffDO.getIsDeleted()
+                new StaffId(staffDO.getId()),
+                staffDO.getNickname(),
+                staffDO.getEmail(),
+                staffDO.getAvatar(),
+                staffDO.getGender(),
+                StaffStatusEnum.toEnum(staffDO.getStatus()),
+                staffDO.getRoleId(),
+                staffDO.getDepartmentId(),
+                staffDO.getCreatorId(),
+                staffDO.getOperatorId(),
+                staffDO.getCreateTime(),
+                staffDO.getUpdateTime(),
+                staffDO.getIsDeleted()
         );
     }
 }
