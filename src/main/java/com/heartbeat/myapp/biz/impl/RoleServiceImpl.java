@@ -10,6 +10,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleDTO getRole(RoleId roleId) {
-        return null;
+
+        return new RoleDTO();
     }
+
+
 }

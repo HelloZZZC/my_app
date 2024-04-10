@@ -1,11 +1,12 @@
 package com.heartbeat.myapp.components.shiro;
 
 import com.heartbeat.myapp.repository.StaffRepository;
+import com.heartbeat.myapp.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -14,10 +15,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class JwtRealm extends AuthorizingRealm {
+public class CustomRealm extends AuthorizingRealm {
 
     private StaffRepository staffRepository;
-
 
     /**
      * 授权
@@ -27,8 +27,7 @@ public class JwtRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        Integer staffId = (Integer) SecurityUtils.getSubject().getPrincipal();
-
+        Integer staffId = (Integer) principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
         return info;
@@ -38,11 +37,16 @@ public class JwtRealm extends AuthorizingRealm {
      * 授权
      * @param authenticationToken AuthenticationToken
      * @return AuthenticationInfo
-     * @throws AuthenticationException
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
             throws AuthenticationException {
-        return null;
+        String jwtToken = (String) authenticationToken.getCredentials();
+        if (!JwtUtil.verify(jwtToken)) {
+            throw new RuntimeException();
+        }
+        Integer staffId = JwtUtil.getStaffId(jwtToken);
+
+        return new SimpleAuthenticationInfo(staffId, jwtToken, getName());
     }
 }

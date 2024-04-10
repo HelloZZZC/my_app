@@ -45,10 +45,10 @@ public class JwtUtil {
     /**
      *
      * @param token token
-     * @param staffId 职工ID
      * @return 是否校验成功
      */
-    public static Boolean verify(String token, Integer staffId) {
+    public static Boolean verify(String token) {
+        Integer staffId = JwtUtil.getStaffId(token);
         String secret = String.format(SECRET_FORMAT, staffId, salt);
         try {
             //根据密码生成JWT效验器

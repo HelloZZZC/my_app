@@ -1,4 +1,11 @@
 package com.heartbeat.myapp.dto;
 
-public class RoleDTO {
+import lombok.Data;
+
+import java.io.Serializable;
+
+@Data
+public class RoleDTO implements Serializable {
+
+
 }

@@ -8,8 +8,8 @@ public interface StaffService {
     /**
      * 根据ID获取职员详情
      *
-     * @param id 职员ID
+     * @param staffId 职员ID
      * @return 职员详情
      */
-    StaffDTO getStaff(StaffId id);
+    StaffDTO getStaff(StaffId staffId);
 }
