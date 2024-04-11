@@ -1,6 +1,7 @@
 package com.heartbeat.myapp.biz;
 
 import com.heartbeat.myapp.dp.identifier.StaffId;
+import com.heartbeat.myapp.dto.StaffBasicDTO;
 import com.heartbeat.myapp.dto.StaffDTO;
 
 public interface StaffService {
@@ -12,4 +13,6 @@ public interface StaffService {
      * @return 职员详情
      */
     StaffDTO getStaff(StaffId staffId);
+
+    StaffBasicDTO getStaffBasic(StaffId staffId);
 }

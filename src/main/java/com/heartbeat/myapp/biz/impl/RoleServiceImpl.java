@@ -3,31 +3,44 @@ package com.heartbeat.myapp.biz.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.heartbeat.myapp.biz.RoleService;
+import com.heartbeat.myapp.biz.StaffService;
 import com.heartbeat.myapp.constant.CommonConstant;
 import com.heartbeat.myapp.constant.RoleConstant;
 import com.heartbeat.myapp.domain.model.Role;
 import com.heartbeat.myapp.dp.identifier.RoleId;
+import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.dto.RoleDTO;
+import com.heartbeat.myapp.dto.StaffBasicDTO;
 import com.heartbeat.myapp.repository.RoleRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleRepository repository;
 
     @Autowired
     private RedissonCacheUtil redissonCacheUtil;
 
+    @Autowired
+    private StaffService staffService;
+
     @Override
     public RoleDTO getRole(RoleId roleId) {
         Role role = tryGetFromCache(roleId);
-        return new RoleDTO();
+        CompletableFuture<StaffBasicDTO> creatorFuture = CompletableFuture.supplyAsync(() -> staffService
+                .getStaffBasic(new StaffId(role.getCreatorId())));
+        CompletableFuture<StaffBasicDTO> operatorFuture = CompletableFuture.supplyAsync(() -> staffService
+                .getStaffBasic(new StaffId(role.getOperatorId())));
+        CompletableFuture.allOf(creatorFuture, operatorFuture).join();
+
+        return RoleDTO.toRoleDTO(role, creatorFuture.join(), operatorFuture.join());
     }
 
     /**
@@ -40,7 +53,7 @@ public class RoleServiceImpl implements RoleService {
         if (Objects.nonNull(roleCache)) {
             return JSON.parseObject(roleCache, Role.class);
         }
-        Role role = roleRepository.get(roleId);
+        Role role = repository.get(roleId);
         redissonCacheUtil.set(cacheKey, JSONObject.toJSONString(role), CommonConstant.SECONDS_OF_ONE_DAY);
 
         return role;

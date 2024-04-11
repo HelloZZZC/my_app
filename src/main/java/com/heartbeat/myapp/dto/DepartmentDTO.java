@@ -1,6 +1,8 @@
 package com.heartbeat.myapp.dto;
 
+import com.heartbeat.myapp.domain.model.Department;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -31,4 +33,12 @@ public class DepartmentDTO implements Serializable {
     private Date updateTime;
 
     private Integer isDeleted;
+
+    public static DepartmentDTO toDepartmentDTO(Department department) {
+        DepartmentDTO departmentDTO = new DepartmentDTO();
+        BeanUtils.copyProperties(department, departmentDTO);
+        departmentDTO.setId(department.getId().getValue());
+
+        return departmentDTO;
+    }
 }

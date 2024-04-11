@@ -1,35 +1,36 @@
 package com.heartbeat.myapp.dto;
 
-import com.heartbeat.myapp.dp.identifier.StaffId;
+import com.heartbeat.myapp.domain.model.Staff;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
-public class StaffDTO implements Serializable {
-
-    private StaffId id;
-
-    private String nickname;
-
-    private String email;
-
-    private String avatar;
-
-    private Integer gender;
-
-    private Integer status;
+public class StaffDTO extends StaffBasicDTO implements Serializable {
 
     private RoleDTO roleDTO;
 
     private DepartmentDTO departmentDTO;
 
-    private StaffDTO creator;
+    private StaffBasicDTO creator;
 
-    private StaffDTO operator;
+    private StaffBasicDTO operator;
 
-    private Date createTime;
+    public static StaffDTO toStaffDTO(
+            Staff staff,
+            RoleDTO roleDTO,
+            DepartmentDTO departmentDTO,
+            StaffBasicDTO creator,
+            StaffBasicDTO operator) {
+        StaffDTO staffDTO = new StaffDTO();
+        BeanUtils.copyProperties(staff, staffDTO);
+        staffDTO.setId(staff.getId().getValue());
+        staffDTO.setRoleDTO(roleDTO);
+        staffDTO.setDepartmentDTO(departmentDTO);
+        staffDTO.setCreator(creator);
+        staffDTO.setOperator(operator);
 
-    private Date updateTime;
+        return staffDTO;
+    }
 }

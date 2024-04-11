@@ -13,6 +13,7 @@ import com.heartbeat.myapp.dp.identifier.RoleId;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.dto.DepartmentDTO;
 import com.heartbeat.myapp.dto.RoleDTO;
+import com.heartbeat.myapp.dto.StaffBasicDTO;
 import com.heartbeat.myapp.dto.StaffDTO;
 import com.heartbeat.myapp.repository.StaffRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
@@ -26,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
 public class StaffServiceImpl implements StaffService {
 
     @Autowired
-    private StaffRepository staffRepository;
+    private StaffRepository repository;
 
     @Autowired
     private RedissonCacheUtil redissonCacheUtil;
@@ -44,11 +45,20 @@ public class StaffServiceImpl implements StaffService {
                 new RoleId(staff.getRoleId())));
         CompletableFuture<DepartmentDTO> departmentFuture = CompletableFuture.supplyAsync(() -> departmentService.
                 getDepartment(new DepartmentId(staff.getDepartmentId())));
-        CompletableFuture.allOf(roleFuture, departmentFuture).join();
-        RoleDTO roleDTO = roleFuture.join();
-        DepartmentDTO departmentDTO = departmentFuture.join();
+        CompletableFuture<StaffBasicDTO> creatorFuture = CompletableFuture.supplyAsync(() -> getStaffBasic(new StaffId(
+                staff.getCreatorId())));
+        CompletableFuture<StaffBasicDTO> operatorFuture = CompletableFuture.supplyAsync(() -> getStaffBasic(new StaffId(
+                staff.getOperatorId())));
+        CompletableFuture.allOf(roleFuture, departmentFuture, creatorFuture, operatorFuture).join();
 
-        return new StaffDTO();
+        return StaffDTO.toStaffDTO(staff, roleFuture.join(), departmentFuture.join(), creatorFuture.join(),
+                operatorFuture.join());
+    }
+
+    @Override
+    public StaffBasicDTO getStaffBasic(StaffId staffId) {
+        Staff staff = tryGetFromCache(staffId);
+        return StaffBasicDTO.toStaffBasicDTO(staff);
     }
 
     /**
@@ -63,7 +73,7 @@ public class StaffServiceImpl implements StaffService {
         if (Objects.nonNull(staffCache)) {
             return JSON.parseObject(staffCache, Staff.class);
         }
-        Staff staff = staffRepository.get(staffId);
+        Staff staff = repository.get(staffId);
         redissonCacheUtil.set(cacheKey, JSONObject.toJSONString(staff), CommonConstant.SECONDS_OF_ONE_DAY);
 
         return staff;

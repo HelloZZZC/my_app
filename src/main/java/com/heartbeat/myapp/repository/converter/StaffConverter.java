@@ -17,6 +17,7 @@ public class StaffConverter {
         return new Staff(
                 new StaffId(staffDO.getId()),
                 staffDO.getNickname(),
+                staffDO.getRealName(),
                 staffDO.getEmail(),
                 staffDO.getAvatar(),
                 staffDO.getGender(),

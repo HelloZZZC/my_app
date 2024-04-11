@@ -15,6 +15,8 @@ public class Staff implements Serializable {
 
     private final String nickname;
 
+    private final String realName;
+
     private final String email;
 
     private final String avatar;
@@ -40,6 +42,7 @@ public class Staff implements Serializable {
     public Staff(
             StaffId id,
             String nickname,
+            String realName,
             String email,
             String avatar,
             Integer gender,
@@ -54,6 +57,7 @@ public class Staff implements Serializable {
     ) {
         this.id = id;
         this.nickname = nickname;
+        this.realName = realName;
         this.email = email;
         this.avatar = avatar;
         this.gender = gender;
