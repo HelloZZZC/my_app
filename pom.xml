@@ -23,7 +23,7 @@
         <validation-starter.version>3.1.0</validation-starter.version>
         <jbcrypt.version>0.4</jbcrypt.version>
         <druid-starter.version>1.2.20</druid-starter.version>
-        <shiro-starter.version>2.0.0</shiro-starter.version>
+        <shiro.version>1.13.0</shiro.version>
         <fastjson.version>2.0.48</fastjson.version>
         <guava.version>33.0.0-jre</guava.version>
     </properties>
@@ -72,8 +72,39 @@
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring-boot-starter</artifactId>
-            <version>${shiro-starter.version}</version>
+            <artifactId>shiro-spring</artifactId>
+            <classifier>jakarta</classifier>
+            <version>${shiro.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <classifier>jakarta</classifier>
+            <version>${shiro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <classifier>jakarta</classifier>
+            <version>${shiro.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

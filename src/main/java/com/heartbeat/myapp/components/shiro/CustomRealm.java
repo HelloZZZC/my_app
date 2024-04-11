@@ -3,7 +3,6 @@ package com.heartbeat.myapp.components.shiro;
 import com.heartbeat.myapp.biz.StaffService;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.dto.StaffDTO;
-import com.heartbeat.myapp.repository.StaffRepository;
 import com.heartbeat.myapp.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;

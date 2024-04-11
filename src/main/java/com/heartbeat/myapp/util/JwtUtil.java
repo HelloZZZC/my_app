@@ -32,12 +32,12 @@ public class JwtUtil {
      */
     private static String salt;
 
-    @Value("${jwt.ttl}")
+    @Value("${shiro.jwt.ttl}")
     public void setTtl(Integer ttl) {
         JwtUtil.ttl = ttl;
     }
 
-    @Value("${jwt.salt}")
+    @Value("${shiro.jwt.salt}")
     public void setSalt(String salt) {
         JwtUtil.salt = salt;
     }
