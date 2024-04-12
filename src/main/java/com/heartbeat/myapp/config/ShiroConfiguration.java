@@ -7,11 +7,15 @@ import jakarta.servlet.Filter;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SubjectFactory;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -51,18 +55,10 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSecurityManager(securityManager());
         //设置组登录请求，其他路径一律自动跳转到这里
         shiroFilterFactoryBean.setLoginUrl("/login");
-        //未授权跳转路径
-        shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
         //设置拦截链map
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        //放行请求
-        filterChainDefinitionMap.put("/shiro/getToken", "anon");
-        //拦截剩下的其他请求
-        filterChainDefinitionMap.put("/**", "authc");
-        //设置拦截规则给shiro的拦截链工厂
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         // 添加自己的自定义拦截器并且取名为jwt
-        Map<String, Filter> filterMap = new HashMap<String, Filter>(1);
+        Map<String, Filter> filterMap = new HashMap<>(1);
         filterMap.put("jwt", new JwtFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
         //拦截链配置，从上向下顺序执行，一般将jwt过滤器放在最为下边
@@ -73,4 +69,26 @@ public class ShiroConfiguration {
         return shiroFilterFactoryBean;
     }
 
+    /**
+     * 下面的代码是添加注解支持
+     */
+    @Bean
+    @DependsOn("lifecycleBeanPostProcessor")
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
+        return defaultAdvisorAutoProxyCreator;
+    }
+
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
+    }
+
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager());
+        return advisor;
+    }
 }
