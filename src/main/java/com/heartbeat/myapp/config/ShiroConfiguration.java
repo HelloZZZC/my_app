@@ -1,7 +1,7 @@
 package com.heartbeat.myapp.config;
 
 import com.heartbeat.myapp.components.shiro.CustomRealm;
-import com.heartbeat.myapp.components.shiro.JwtDefaultSubjectFactory;
+import com.heartbeat.myapp.components.shiro.JwtSubjectFactory;
 import com.heartbeat.myapp.components.shiro.JwtFilter;
 import jakarta.servlet.Filter;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
@@ -29,7 +29,7 @@ public class ShiroConfiguration {
 
     @Bean
     public SubjectFactory subjectFactory() {
-        return new JwtDefaultSubjectFactory();
+        return new JwtSubjectFactory();
     }
 
     @Bean
