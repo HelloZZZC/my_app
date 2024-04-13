@@ -10,6 +10,7 @@ import com.heartbeat.myapp.repository.DepartmentRepository;
 import com.heartbeat.myapp.repository.converter.DepartmentConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 @Repository
 public class DepartmentRepositoryImpl implements DepartmentRepository {
@@ -28,6 +29,6 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
 
         DepartmentDO departmentDO = departmentMapper.selectOne(queryWrapper);
 
-        return departmentConverter.toDepartment(departmentDO);
+        return ObjectUtils.isEmpty(departmentDO) ? null :  departmentConverter.toDepartment(departmentDO);
     }
 }

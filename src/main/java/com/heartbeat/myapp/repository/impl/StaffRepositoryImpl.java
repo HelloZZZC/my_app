@@ -10,6 +10,7 @@ import com.heartbeat.myapp.repository.StaffRepository;
 import com.heartbeat.myapp.repository.converter.StaffConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 @Repository
 public class StaffRepositoryImpl implements StaffRepository {
@@ -28,6 +29,6 @@ public class StaffRepositoryImpl implements StaffRepository {
 
         StaffDO staffDO = mapper.selectOne(queryWrapper);
 
-        return converter.toStaff(staffDO);
+        return ObjectUtils.isEmpty(staffDO) ? null : converter.toStaff(staffDO);
     }
 }

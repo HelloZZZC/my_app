@@ -40,10 +40,12 @@ spring:
         nettyThreads: 0
         codec: !<org.redisson.codec.Kryo5Codec> {}
         transportMode: "NIO"
+  main:
+    allow-circular-references: true
 server:
   port: 8080
 
 shiro:
   jwt:
-    ttl: 1800
+    ttl: 3600
     salt: J2i5W35FvjhxjLPR

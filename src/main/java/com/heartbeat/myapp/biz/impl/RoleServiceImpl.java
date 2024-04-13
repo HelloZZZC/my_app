@@ -15,6 +15,7 @@ import com.heartbeat.myapp.repository.RoleRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -34,10 +35,13 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleDTO getRole(RoleId roleId) {
         Role role = tryGetFromCache(roleId);
+        if (ObjectUtils.isEmpty(role)) {
+            throw new RuntimeException();
+        }
         CompletableFuture<StaffBasicDTO> creatorFuture = CompletableFuture.supplyAsync(() -> staffService
-                .getStaffBasic(new StaffId(role.getCreatorId())));
+                .getStaffBasic(new StaffId(role.getCreatorId()))).exceptionally(e -> null);
         CompletableFuture<StaffBasicDTO> operatorFuture = CompletableFuture.supplyAsync(() -> staffService
-                .getStaffBasic(new StaffId(role.getOperatorId())));
+                .getStaffBasic(new StaffId(role.getOperatorId()))).exceptionally(e -> null);
         CompletableFuture.allOf(creatorFuture, operatorFuture).join();
 
         return RoleDTO.toRoleDTO(role, creatorFuture.join(), operatorFuture.join());

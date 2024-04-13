@@ -9,6 +9,7 @@ import com.heartbeat.myapp.repository.AccountRepository;
 import com.heartbeat.myapp.repository.converter.AccountConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
@@ -25,7 +26,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         queryWrapper.eq(AccountDO::getId, accountId.getValue());
         AccountDO accountDO = mapper.selectOne(queryWrapper);
 
-        return converter.toAccount(accountDO);
+        return ObjectUtils.isEmpty(accountDO) ? null : converter.toAccount(accountDO);
     }
 
     @Override
@@ -34,6 +35,6 @@ public class AccountRepositoryImpl implements AccountRepository {
         queryWrapper.eq(AccountDO::getUsername, username);
         AccountDO accountDO = mapper.selectOne(queryWrapper);
 
-        return converter.toAccount(accountDO);
+        return ObjectUtils.isEmpty(accountDO) ? null : converter.toAccount(accountDO);
     }
 }

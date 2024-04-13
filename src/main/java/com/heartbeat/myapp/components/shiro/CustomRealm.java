@@ -27,6 +27,16 @@ public class CustomRealm extends AuthorizingRealm {
     private StaffService staffService;
 
     /**
+     * 重写supports，不然会报错
+     * @param token the token being submitted for authentication.
+     * @return boolean
+     */
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof JwtToken;
+    }
+
+    /**
      * 授权
      *
      * @param principalCollection PrincipalCollection

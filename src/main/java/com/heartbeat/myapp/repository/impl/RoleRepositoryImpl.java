@@ -16,6 +16,7 @@ import com.heartbeat.myapp.repository.RoleRepository;
 import com.heartbeat.myapp.repository.converter.RoleConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -40,12 +41,14 @@ public class RoleRepositoryImpl implements RoleRepository {
         roleQueryMapper.eq(RoleDO::getId, roleId.getValue());
         roleQueryMapper.eq(RoleDO::getIsDeleted, DeletedEnum.NOT_DELETED.getValue());
         RoleDO roleDO = roleMapper.selectOne(roleQueryMapper);
-
+        if (ObjectUtils.isEmpty(roleDO)) {
+            return null;
+        }
         LambdaQueryWrapper<RolePermissionDO> rolePermissionQueryWrapper = new LambdaQueryWrapper<>();
         rolePermissionQueryWrapper.eq(RolePermissionDO::getRoleId, roleId.getValue());
         rolePermissionQueryWrapper.eq(RolePermissionDO::getIsDeleted, DeletedEnum.NOT_DELETED.getValue());
         List<RolePermissionDO> rolePermissionDOList = rolePermissionMapper.selectList(rolePermissionQueryWrapper);
-        List<PermissionId> permissionIds = PermissionId.toList(Lists.transform(rolePermissionDOList, RolePermissionDO::getPermissionId));
+        List<Integer> permissionIds = Lists.transform(rolePermissionDOList, RolePermissionDO::getPermissionId);
         List<Permission> permissionList = permissionRepository.findBy(permissionIds);
 
         return roleConverter.toRole(roleDO, permissionList);

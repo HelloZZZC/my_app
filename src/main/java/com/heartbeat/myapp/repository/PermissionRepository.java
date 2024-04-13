@@ -13,5 +13,5 @@ public interface PermissionRepository {
      * @param permissionIds 权限ID列表
      * @return 权限列表
      */
-    List<Permission> findBy(List<PermissionId> permissionIds);
+    List<Permission> findBy(List<Integer> permissionIds);
 }

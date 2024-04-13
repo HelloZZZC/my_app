@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `departments`;
 CREATE TABLE `departments` (
                                `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '系统部门ID',
                                `title` varchar(32) NOT NULL COMMENT '部门标题',
-                               `parentId` int(10) NOT NULL DEFAULT '0' COMMENT '上级部门ID',
+                               `parent_id` int(10) NOT NULL DEFAULT '0' COMMENT '上级部门ID',
                                `path` varchar(128) DEFAULT NULL COMMENT '上级部门路径',
                                `level` int(10) NOT NULL DEFAULT '1' COMMENT '层级',
                                `sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序',

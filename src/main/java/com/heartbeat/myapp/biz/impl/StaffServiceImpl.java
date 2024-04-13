@@ -19,6 +19,7 @@ import com.heartbeat.myapp.repository.StaffRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -41,14 +42,17 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public StaffDTO getStaff(StaffId staffId) {
         Staff staff = tryGetFromCache(staffId);
+        if (ObjectUtils.isEmpty(staff)) {
+            throw new RuntimeException();
+        }
         CompletableFuture<RoleDTO> roleFuture = CompletableFuture.supplyAsync(() -> roleService.getRole(
-                new RoleId(staff.getRoleId())));
+                new RoleId(staff.getRoleId()))).exceptionally(e -> null);
         CompletableFuture<DepartmentDTO> departmentFuture = CompletableFuture.supplyAsync(() -> departmentService.
-                getDepartment(new DepartmentId(staff.getDepartmentId())));
+                getDepartment(new DepartmentId(staff.getDepartmentId()))).exceptionally(e -> null);
         CompletableFuture<StaffBasicDTO> creatorFuture = CompletableFuture.supplyAsync(() -> getStaffBasic(new StaffId(
-                staff.getCreatorId())));
+                staff.getCreatorId()))).exceptionally(e -> null);
         CompletableFuture<StaffBasicDTO> operatorFuture = CompletableFuture.supplyAsync(() -> getStaffBasic(new StaffId(
-                staff.getOperatorId())));
+                staff.getOperatorId()))).exceptionally(e -> null);
         CompletableFuture.allOf(roleFuture, departmentFuture, creatorFuture, operatorFuture).join();
 
         return StaffDTO.toStaffDTO(staff, roleFuture.join(), departmentFuture.join(), creatorFuture.join(),
@@ -58,6 +62,9 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public StaffBasicDTO getStaffBasic(StaffId staffId) {
         Staff staff = tryGetFromCache(staffId);
+        if (ObjectUtils.isEmpty(staff)) {
+            throw new RuntimeException();
+        }
         return StaffBasicDTO.toStaffBasicDTO(staff);
     }
 

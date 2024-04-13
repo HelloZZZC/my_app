@@ -23,7 +23,7 @@ public class PermissionRepositoryImpl  implements PermissionRepository {
     private PermissionConverter converter;
 
     @Override
-    public List<Permission> findBy(List<PermissionId> permissionIds) {
+    public List<Permission> findBy(List<Integer> permissionIds) {
         LambdaQueryWrapper<PermissionDO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.in(PermissionDO::getId, permissionIds);
         queryWrapper.eq(PermissionDO::getIsDeleted, DeletedEnum.NOT_DELETED.getValue());

@@ -12,6 +12,7 @@ import com.heartbeat.myapp.repository.DepartmentRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Objects;
 
@@ -27,6 +28,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentDTO getDepartment(DepartmentId departmentId) {
         Department department = tryGetFromCache(departmentId);
+        if (ObjectUtils.isEmpty(department)) {
+            throw new RuntimeException();
+        }
         return DepartmentDTO.toDepartmentDTO(department);
     }
 
