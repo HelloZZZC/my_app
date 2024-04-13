@@ -3,7 +3,7 @@
 
 ![Static Badge](https://img.shields.io/badge/Language-java-blue)
 ![Static Badge](https://img.shields.io/badge/Framework-SpringBoot-yellow)
-![Static Badge](https://img.shields.io/badge/Framework-Shiro-Green
+![Static Badge](https://img.shields.io/badge/Framework-Shiro-Green)
 ![Static Badge](https://img.shields.io/badge/Framework-Jwt-purple)
 
 
