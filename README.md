@@ -1,12 +1,15 @@
 
 <h1 align="center"></h1><div align="center">
 
-![Language](https://img.shields.io/badge/-Java-F7DF1E?style=flat-square&logo=java&logoColor=FFFFFF)
-![Framework](https://img.shields.io/badge/-springboot-6DB33F?style=flat-square&logo=springboot&logoColor=FFFFFF)
+![Static Badge](https://img.shields.io/badge/Language-java-blue)
+![Static Badge](https://img.shields.io/badge/Framework-SpringBoot-yellow)
+![Static Badge](https://img.shields.io/badge/Framework-Shiro-Green
+![Static Badge](https://img.shields.io/badge/Framework-Jwt-purple)
+
 
 ## RABC脚手架
 
-目的是用来接一些Admin的外快，自己写的脚手架。
+目的是用来接一些Admin的外快，自己写的脚手架。🔥
 
 ---
 </div>
@@ -187,6 +190,6 @@
 
 ### TODO
 
-1. [] 接口补充完整
-2. [] 代码优化
-3. [] 单元测试 
+1. [ ] 接口补充完整
+2. [ ] 代码优化
+3. [ ] 单元测试 
