@@ -5,6 +5,7 @@
 Spring Boot + Shiro + JWT实现登录模块脚手架（基础能力用于接些简单的外包）
 
 ### 文件结构
+```
 ├── db
 ├── src
 │   ├── main
@@ -79,5 +80,5 @@ Spring Boot + Shiro + JWT实现登录模块脚手架（基础能力用于接些�
         └── com
             └── example
                 └── myapp
-
+```
 持续Commit中!!!!!!!
