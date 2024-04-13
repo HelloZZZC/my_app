@@ -32,7 +32,7 @@ CREATE TABLE `accounts` (
                             `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
                             `is_deleted` tinyint(4) DEFAULT '0' COMMENT '是否删除 0:否 1:是',
                             PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统账号';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='系统账号';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `departments` (
                                `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
                                `is_deleted` tinyint(4) DEFAULT '0' COMMENT '是否删除 0:否 1:是',
                                PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统部门表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='系统部门表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `permissions` (
                                `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
                                `is_deleted` tinyint(4) DEFAULT '0' COMMENT '是否删除 0:否 1:是',
                                PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='系统权限表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +106,7 @@ CREATE TABLE `permissions` (
 
 LOCK TABLES `permissions` WRITE;
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
-INSERT INTO `permissions` VALUES (1,'职工列表','sys:staff:list','查看职工列表',1,'2024-04-12 21:51:48',1,'2024-04-12 21:51:52',0);
+INSERT INTO `permissions` VALUES (1,'职工列表','sys:staff:list','查看职工列表',1,'2024-04-12 21:51:48',1,'2024-04-12 21:51:52',0),(2,'职工详情','sys:staff:info','查看职工详情',1,'2024-04-13 12:56:50',1,'2024-04-13 12:56:53',0);
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,13 +121,11 @@ CREATE TABLE `role_permissions` (
                                     `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '系统角色权限ID',
                                     `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
                                     `permission_id` bigint(20) DEFAULT NULL COMMENT '权限ID',
-                                    `creator_id` bigint(20) DEFAULT NULL COMMENT '创建人ID',
                                     `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                    `operator_id` bigint(20) DEFAULT NULL COMMENT '最后操作人ID',
                                     `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
                                     `is_deleted` tinyint(4) DEFAULT '0' COMMENT '是否删除 0:否 1:是',
                                     PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统角色权限关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='系统角色权限关联表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +134,7 @@ CREATE TABLE `role_permissions` (
 
 LOCK TABLES `role_permissions` WRITE;
 /*!40000 ALTER TABLE `role_permissions` DISABLE KEYS */;
-INSERT INTO `role_permissions` VALUES (1,1,1,1,'2024-04-12 21:52:55',1,'2024-04-12 21:52:58',0);
+INSERT INTO `role_permissions` VALUES (1,1,1,'2024-04-12 21:52:55','2024-04-12 21:52:58',0),(2,1,2,'2024-04-13 12:57:19','2024-04-13 12:57:22',0);
 /*!40000 ALTER TABLE `role_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +156,7 @@ CREATE TABLE `roles` (
                          `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
                          `is_deleted` tinyint(4) DEFAULT '0' COMMENT '是否删除 0:否 1:是',
                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='系统角色表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +192,7 @@ CREATE TABLE `staffs` (
                           `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
                           `is_deleted` tinyint(4) DEFAULT '0' COMMENT '是否删除 0:否 1:是',
                           PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统职工表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='系统职工表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,4 +214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-13 12:50:16
+-- Dump completed on 2024-04-13 16:47:49
