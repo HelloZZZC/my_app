@@ -8,6 +8,8 @@ import com.heartbeat.myapp.constant.DepartmentConstant;
 import com.heartbeat.myapp.domain.model.Department;
 import com.heartbeat.myapp.dp.identifier.DepartmentId;
 import com.heartbeat.myapp.dto.DepartmentDTO;
+import com.heartbeat.myapp.exception.BizException;
+import com.heartbeat.myapp.exception.errorcode.DepartmentErrorCode;
 import com.heartbeat.myapp.repository.DepartmentRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDTO getDepartment(DepartmentId departmentId) {
         Department department = tryGetFromCache(departmentId);
         if (ObjectUtils.isEmpty(department)) {
-            throw new RuntimeException();
+            throw new BizException(DepartmentErrorCode.DEPARTMENT_NOT_FOUND, String.format("系统部门[id:%d]不存在",
+                    departmentId.getValue()));
         }
         return DepartmentDTO.toDepartmentDTO(department);
     }

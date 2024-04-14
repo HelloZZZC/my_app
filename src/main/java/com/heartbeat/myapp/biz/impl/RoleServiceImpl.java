@@ -11,6 +11,8 @@ import com.heartbeat.myapp.dp.identifier.RoleId;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.dto.RoleDTO;
 import com.heartbeat.myapp.dto.StaffBasicDTO;
+import com.heartbeat.myapp.exception.BizException;
+import com.heartbeat.myapp.exception.errorcode.RoleErrorCode;
 import com.heartbeat.myapp.repository.RoleRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,8 @@ public class RoleServiceImpl implements RoleService {
     public RoleDTO getRole(RoleId roleId) {
         Role role = tryGetFromCache(roleId);
         if (ObjectUtils.isEmpty(role)) {
-            throw new RuntimeException();
+            throw new BizException(RoleErrorCode.ROLE_NOT_FOUND, String.format("系统角色[id:%d]不存在",
+                    roleId.getValue()));
         }
         CompletableFuture<StaffBasicDTO> creatorFuture = CompletableFuture.supplyAsync(() -> staffService
                 .getStaffBasic(new StaffId(role.getCreatorId()))).exceptionally(e -> null);

@@ -15,6 +15,8 @@ import com.heartbeat.myapp.dto.DepartmentDTO;
 import com.heartbeat.myapp.dto.RoleDTO;
 import com.heartbeat.myapp.dto.StaffBasicDTO;
 import com.heartbeat.myapp.dto.StaffDTO;
+import com.heartbeat.myapp.exception.BizException;
+import com.heartbeat.myapp.exception.errorcode.StaffErrorCode;
 import com.heartbeat.myapp.repository.StaffRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,8 @@ public class StaffServiceImpl implements StaffService {
     public StaffDTO getStaff(StaffId staffId) {
         Staff staff = tryGetFromCache(staffId);
         if (ObjectUtils.isEmpty(staff)) {
-            throw new RuntimeException();
+            throw new BizException(StaffErrorCode.STAFF_NOT_FOUND, String.format("系统职工[id:%d]不存在",
+                    staffId.getValue()));
         }
         CompletableFuture<RoleDTO> roleFuture = CompletableFuture.supplyAsync(() -> roleService.getRole(
                 new RoleId(staff.getRoleId()))).exceptionally(e -> null);
@@ -63,7 +66,8 @@ public class StaffServiceImpl implements StaffService {
     public StaffBasicDTO getStaffBasic(StaffId staffId) {
         Staff staff = tryGetFromCache(staffId);
         if (ObjectUtils.isEmpty(staff)) {
-            throw new RuntimeException();
+            throw new BizException(StaffErrorCode.STAFF_NOT_FOUND, String.format("系统职工[id:%d]不存在",
+                    staffId.getValue()));
         }
         return StaffBasicDTO.toStaffBasicDTO(staff);
     }

@@ -6,6 +6,9 @@ import com.heartbeat.myapp.domain.model.Account;
 import com.heartbeat.myapp.domain.model.Staff;
 import com.heartbeat.myapp.dp.Password;
 import com.heartbeat.myapp.dp.identifier.StaffId;
+import com.heartbeat.myapp.exception.BizException;
+import com.heartbeat.myapp.exception.errorcode.AuthErrorCode;
+import com.heartbeat.myapp.exception.errorcode.StaffErrorCode;
 import com.heartbeat.myapp.repository.AccountRepository;
 import com.heartbeat.myapp.repository.StaffRepository;
 import com.heartbeat.myapp.util.JwtUtil;
@@ -31,15 +34,16 @@ public class AuthServiceImpl implements AuthService {
     public String login(LoginParam param) {
         Account account = accountRepository.getByUsername(param.getUsername());
         if (ObjectUtils.isEmpty(account)) {
-            throw new RuntimeException();
+            throw new BizException(AuthErrorCode.ACCOUNT_NOT_FOUND);
         }
         Boolean isRight = account.verifyPassword(new Password(param.getPassword()));
         if (!isRight) {
-            throw new RuntimeException();
+            throw new BizException(AuthErrorCode.PASSWORD_CHECK_FAILURE);
         }
         Staff staff = staffRepository.get(new StaffId(account.getStaffId()));
         if (!staff.isEmployment()) {
-            throw new RuntimeException();
+            throw new BizException(StaffErrorCode.STAFF_NOT_EMPLOYMENT, String.format("系统职工[id:%d]状态非在职",
+                    staff.getId().getValue()));
         }
         String token = JwtUtil.generate(staff.getId().getValue());
         String CacheKey = String.format(AuthConstant.STAFF_TOKEN_FORMAT, staff.getId().getValue());
