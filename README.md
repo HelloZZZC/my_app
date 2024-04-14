@@ -45,6 +45,7 @@
 │   │   │               ├── dto
 │   │   │               ├── enums
 │   │   │               ├── exception
+│   │   │               │   └── errorcode
 │   │   │               ├── repository
 │   │   │               │   ├── converter
 │   │   │               │   └── impl
