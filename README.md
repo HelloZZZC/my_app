@@ -46,6 +46,7 @@
 │   │   │               ├── enums
 │   │   │               ├── exception
 │   │   │               │   └── errorcode
+│   │   │               ├── handler
 │   │   │               ├── repository
 │   │   │               │   ├── converter
 │   │   │               │   └── impl
