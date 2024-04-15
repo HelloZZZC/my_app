@@ -7,7 +7,7 @@
 ![Static Badge](https://img.shields.io/badge/Framework-Jwt-purple)
 
 
-## RABC脚手架
+## RBAC脚手架
 
 目的是用来接一些Admin的外快，自己写的脚手架。🔥
 
