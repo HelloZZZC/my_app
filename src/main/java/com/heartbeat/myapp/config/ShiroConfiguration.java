@@ -23,7 +23,6 @@ import java.util.Map;
 @Configuration
 public class ShiroConfiguration {
 
-
     @Bean
     public SubjectFactory subjectFactory() {
         return new JwtSubjectFactory();

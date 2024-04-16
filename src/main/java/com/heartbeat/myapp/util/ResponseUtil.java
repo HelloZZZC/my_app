@@ -11,8 +11,6 @@ public class ResponseUtil<T> implements Serializable {
 
     private T data;
 
-    public ResponseUtil() {}
-
     private ResponseUtil(T data) {
         this.data = data;
     }
