@@ -10,7 +10,7 @@ import com.heartbeat.myapp.exception.BizErrorCode;
  */
 public enum AuthErrorCode implements BizErrorCode {
 
-    JWT_VERIFY_FAILURE("01010001", "jwt验证失败"),
+    AUTH_VERIFY_FAILURE("01010001", "身份验证失败"),
     ACCOUNT_NOT_FOUND("01010002", "系统账号不存在"),
     PASSWORD_CHECK_FAILURE("01010003", "密码校验失败，密码或用户名错误");
 

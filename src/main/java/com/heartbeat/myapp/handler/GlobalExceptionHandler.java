@@ -6,18 +6,18 @@ import com.heartbeat.myapp.util.ResponseUtil;
 import com.heartbeat.myapp.web.model.ErrBodyVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.OK)
@@ -83,9 +83,9 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler({Exception.class})
+    @ExceptionHandler({AuthenticationException.class})
     @ResponseBody
-    public ResponseUtil<ErrBodyVO> handleException(HttpServletRequest request, Exception exception) {
+    public ResponseUtil<ErrBodyVO> handleException(HttpServletRequest request, AuthenticationException exception) {
         ErrBodyVO errBodyVO = new ErrBodyVO();
         errBodyVO.setErrCode(CommonErrorCode.UN_KNOWN.getCode());
         errBodyVO.setErrMsg(exception.getMessage());

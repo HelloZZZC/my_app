@@ -3,8 +3,6 @@ package com.heartbeat.myapp.components.shiro;
 import com.heartbeat.myapp.biz.StaffService;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.dto.StaffDTO;
-import com.heartbeat.myapp.exception.BizException;
-import com.heartbeat.myapp.exception.errorcode.AuthErrorCode;
 import com.heartbeat.myapp.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
@@ -74,7 +72,7 @@ public class CustomRealm extends AuthorizingRealm {
             throws AuthenticationException {
         String jwtToken = (String) authenticationToken.getCredentials();
         if (!JwtUtil.verify(jwtToken)) {
-            throw new BizException(AuthErrorCode.JWT_VERIFY_FAILURE);
+            throw new AuthenticationException();
         }
         Integer staffId = JwtUtil.getStaffId(jwtToken);
 
