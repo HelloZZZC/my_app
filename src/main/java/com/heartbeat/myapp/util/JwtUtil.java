@@ -68,7 +68,6 @@ public class JwtUtil {
     public static Integer getStaffId(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
-            // 只能输出String类型，如果是其他类型返回null
             return jwt.getClaim("staffId").asInt();
         } catch (JWTDecodeException e) {
             log.error("JWT Token解析失败，Params：=========token:{}========msg:{}======", token, e.getMessage());
@@ -78,15 +77,15 @@ public class JwtUtil {
 
     /**
      * 生成token签名EXPIRE_TIME30分钟后过期
+     * token是否过期交由redis处理
      *
      * @param staffId  职工ID
      * @return 加密的token
      */
     public static String generate(Integer staffId) {
-        Date date = new Date(System.currentTimeMillis() + ttl * 1000);
         String secret = String.format(SECRET_FORMAT, staffId, salt);
         Algorithm algorithm = Algorithm.HMAC256(secret);
-        String token = JWT.create().withClaim("staffId", staffId).withExpiresAt(date).sign(algorithm);
+        String token = JWT.create().withClaim("staffId", staffId).sign(algorithm);
         log.info("JWT Token创建成功，Params: ====staffId:{}====secret:{}=====", staffId, secret);
 
         return token;

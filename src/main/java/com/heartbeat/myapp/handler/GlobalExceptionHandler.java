@@ -7,7 +7,6 @@ import com.heartbeat.myapp.web.model.ErrBodyVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -83,9 +82,9 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler({AuthenticationException.class})
+    @ExceptionHandler({Exception.class})
     @ResponseBody
-    public ResponseUtil<ErrBodyVO> handleException(HttpServletRequest request, AuthenticationException exception) {
+    public ResponseUtil<ErrBodyVO> handleException(HttpServletRequest request, Exception exception) {
         ErrBodyVO errBodyVO = new ErrBodyVO();
         errBodyVO.setErrCode(CommonErrorCode.UN_KNOWN.getCode());
         errBodyVO.setErrMsg(exception.getMessage());

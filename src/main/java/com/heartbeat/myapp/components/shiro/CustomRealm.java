@@ -1,6 +1,7 @@
 package com.heartbeat.myapp.components.shiro;
 
 import com.heartbeat.myapp.biz.StaffService;
+import com.heartbeat.myapp.dp.JwtTokenCache;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.dto.StaffDTO;
 import com.heartbeat.myapp.util.JwtUtil;
@@ -74,7 +75,13 @@ public class CustomRealm extends AuthorizingRealm {
         if (!JwtUtil.verify(jwtToken)) {
             throw new AuthenticationException();
         }
-        Integer staffId = JwtUtil.getStaffId(jwtToken);
+        JwtTokenCache jwtTokenCache = new JwtTokenCache(jwtToken);
+        if (!jwtTokenCache.isTokenValid()) {
+            throw new AuthenticationException();
+        }
+        jwtTokenCache.refreshIfNeed();
+
+        Integer staffId = jwtTokenCache.getStaffId();
 
         return new SimpleAuthenticationInfo(staffId, jwtToken, getName());
     }

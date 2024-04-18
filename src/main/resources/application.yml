@@ -47,5 +47,5 @@ server:
 
 shiro:
   jwt:
-    ttl: 3600
+    ttl: 86400
     salt: J2i5W35FvjhxjLPR

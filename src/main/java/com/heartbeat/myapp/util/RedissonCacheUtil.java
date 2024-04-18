@@ -2,12 +2,14 @@ package com.heartbeat.myapp.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBucket;
+import org.redisson.api.RScript;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
+import java.util.Collections;
 
 @Component
 @ConditionalOnProperty(name = {"spring.redis.redisson.config"})
@@ -44,6 +46,14 @@ public class RedissonCacheUtil {
             log.error("保存普通缓存发生异常:{}", e.getMessage());
         }
 
+    }
+
+    /**
+     * @param key 缓存key
+     * @return 过期时间
+     */
+    public Long getTTL(String key) {
+        return this.redissonClient.getBucket(key).remainTimeToLive();
     }
 
     /**
