@@ -5,6 +5,8 @@ import com.heartbeat.myapp.util.JwtUtil;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
 import com.heartbeat.myapp.util.SpringContextUtil;
 
+import java.util.concurrent.TimeUnit;
+
 public class JwtTokenCache {
 
     private final String jwtToken;
@@ -55,10 +57,11 @@ public class JwtTokenCache {
     public void refreshIfNeed() {
         Long ttl = this.redissonCacheUtil.getTTL(this.cacheKey);
         // ttl等于-2说明key不存在或者当前key不满足刷新条件
-        if (ttl.equals(KEY_NOT_EXISTS_TTL) || ttl >= REFRESH_KEY_TTL) {
+        if (ttl.equals(KEY_NOT_EXISTS_TTL) || ttl >= REFRESH_KEY_TTL * 1000) {
             return;
         }
+        long expireTime = ttl + REFRESH_KEY_TTL * 1000;
 
-        this.redissonCacheUtil.set(this.cacheKey, getStaffId(), REFRESH_KEY_TTL);
+        this.redissonCacheUtil.set(this.cacheKey, getStaffId(), expireTime, TimeUnit.MILLISECONDS);
     }
 }

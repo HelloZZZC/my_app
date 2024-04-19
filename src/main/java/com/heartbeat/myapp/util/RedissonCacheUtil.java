@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @ConditionalOnProperty(name = {"spring.redis.redisson.config"})
@@ -65,6 +66,39 @@ public class RedissonCacheUtil {
         try {
             long expireTime = Math.max(time, 0L);
             this.redissonClient.getBucket(key).set(value, Duration.ofSeconds(expireTime));
+        } catch (Exception e) {
+            log.error("保存普通缓存发生异常:{}", e.getMessage());
+        }
+    }
+
+    /**
+     * @param key      缓存key
+     * @param value    设置的值
+     * @param time     过期时间
+     * @param timeUnit 时间单位
+     */
+    public void set(String key, Object value, long time, TimeUnit timeUnit) {
+        Duration duration;
+        long expireTime = Math.max(time, 0L);
+        switch (timeUnit) {
+            case DAYS -> {
+                duration = Duration.ofDays(expireTime);
+            }
+            case HOURS -> {
+                duration = Duration.ofHours(expireTime);
+            }
+            case MINUTES -> {
+                duration = Duration.ofMinutes(expireTime);
+            }
+            case SECONDS -> {
+                duration = Duration.ofSeconds(expireTime);
+            }
+            default -> {
+                duration = Duration.ofMillis(expireTime);
+            }
+        }
+        try {
+            this.redissonClient.getBucket(key).set(value, duration);
         } catch (Exception e) {
             log.error("保存普通缓存发生异常:{}", e.getMessage());
         }
