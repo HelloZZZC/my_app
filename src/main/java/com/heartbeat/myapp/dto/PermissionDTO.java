@@ -34,11 +34,10 @@ public class PermissionDTO implements Serializable {
     private Integer isDeleted;
 
     /**
-     *
-     * @param permission
-     * @return
+     * @param permission Permission
+     * @return PermissionDTO
      */
-    public static PermissionDTO toPermissionDTO(Permission permission) {
+    public static PermissionDTO transformBy(Permission permission) {
         PermissionDTO permissionDTO = new PermissionDTO();
         BeanUtils.copyProperties(permission, permissionDTO);
         permissionDTO.setId(permission.getId().getValue());
@@ -47,17 +46,16 @@ public class PermissionDTO implements Serializable {
     }
 
     /**
-     *
-     * @param permissionList
-     * @return
+     * @param permissionList List<Permission>
+     * @return List<PermissionDTO>
      */
-    public static List<PermissionDTO> toPermissionDTOList(List<Permission> permissionList) {
+    public static List<PermissionDTO> transformListBy(List<Permission> permissionList) {
         List<PermissionDTO> permissionDTOList = new ArrayList<>();
         if (CollectionUtils.isEmpty(permissionList)) {
             return Collections.emptyList();
         }
         permissionList.forEach(permission -> {
-            PermissionDTO permissionDTO = toPermissionDTO(permission);
+            PermissionDTO permissionDTO = transformBy(permission);
             permissionDTOList.add(permissionDTO);
         });
 

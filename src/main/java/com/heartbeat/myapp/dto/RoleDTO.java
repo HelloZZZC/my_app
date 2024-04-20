@@ -31,11 +31,11 @@ public class RoleDTO implements Serializable {
 
     private Integer isDeleted;
 
-    public static RoleDTO toRoleDTO(Role role, StaffBasicDTO creator, StaffBasicDTO operator) {
+    public static RoleDTO transformBy(Role role, StaffBasicDTO creator, StaffBasicDTO operator) {
         RoleDTO roleDTO = new RoleDTO();
         BeanUtils.copyProperties(role, roleDTO);
         roleDTO.setId(role.getId().getValue());
-        roleDTO.setPermissions(PermissionDTO.toPermissionDTOList(role.getPermissions()));
+        roleDTO.setPermissions(PermissionDTO.transformListBy(role.getPermissions()));
         roleDTO.setCreator(creator);
         roleDTO.setOperator(operator);
 

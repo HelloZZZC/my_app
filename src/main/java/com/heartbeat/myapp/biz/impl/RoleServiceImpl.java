@@ -47,7 +47,7 @@ public class RoleServiceImpl implements RoleService {
                 .getStaffBasic(new StaffId(role.getOperatorId()))).exceptionally(e -> null);
         CompletableFuture.allOf(creatorFuture, operatorFuture).join();
 
-        return RoleDTO.toRoleDTO(role, creatorFuture.join(), operatorFuture.join());
+        return RoleDTO.transformBy(role, creatorFuture.join(), operatorFuture.join());
     }
 
     /**

@@ -28,7 +28,7 @@ public class StaffBasicDTO implements Serializable {
 
     private Date updateTime;
 
-    public static StaffBasicDTO toStaffBasicDTO(Staff staff) {
+    public static StaffBasicDTO transformBy(Staff staff) {
         StaffBasicDTO staffBasicDTO = new StaffBasicDTO();
         BeanUtils.copyProperties(staff, staffBasicDTO);
         staffBasicDTO.setId(staff.getId().getValue());
