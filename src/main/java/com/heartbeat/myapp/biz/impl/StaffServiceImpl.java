@@ -69,7 +69,7 @@ public class StaffServiceImpl implements StaffService {
             throw new BizException(StaffErrorCode.STAFF_NOT_FOUND, String.format("系统职工[id:%d]不存在",
                     staffId.getValue()));
         }
-        return StaffBasicDTO.toStaffBasicDTO(staff);
+        return StaffBasicDTO.transformBy(staff);
     }
 
     /**

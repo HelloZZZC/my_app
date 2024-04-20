@@ -34,7 +34,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             throw new BizException(DepartmentErrorCode.DEPARTMENT_NOT_FOUND, String.format("系统部门[id:%d]不存在",
                     departmentId.getValue()));
         }
-        return DepartmentDTO.toDepartmentDTO(department);
+        return DepartmentDTO.transformBy(department);
     }
 
     /**

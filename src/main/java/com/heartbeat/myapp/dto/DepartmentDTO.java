@@ -34,7 +34,7 @@ public class DepartmentDTO implements Serializable {
 
     private Integer isDeleted;
 
-    public static DepartmentDTO toDepartmentDTO(Department department) {
+    public static DepartmentDTO transformBy(Department department) {
         DepartmentDTO departmentDTO = new DepartmentDTO();
         BeanUtils.copyProperties(department, departmentDTO);
         departmentDTO.setId(department.getId().getValue());
