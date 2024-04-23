@@ -19,8 +19,10 @@ import com.heartbeat.myapp.exception.BizException;
 import com.heartbeat.myapp.exception.errorcode.StaffErrorCode;
 import com.heartbeat.myapp.repository.StaffRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
+import com.heartbeat.myapp.web.param.StaffCreateParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Objects;
@@ -88,5 +90,11 @@ public class StaffServiceImpl implements StaffService {
         redissonCacheUtil.set(cacheKey, JSONObject.toJSONString(staff), CommonConstant.SECONDS_OF_ONE_DAY);
 
         return staff;
+    }
+
+    @Override
+    @Transactional(rollbackFor = BizException.class)
+    public Integer createStaffByManager(StaffCreateParam createParam, StaffId managerId) {
+        return 0;
     }
 }
