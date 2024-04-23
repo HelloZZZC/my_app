@@ -181,6 +181,7 @@ CREATE TABLE `staffs` (
                           `nickname` varchar(20) DEFAULT NULL COMMENT '职工昵称',
                           `real_name` varchar(20) NOT NULL COMMENT '职工真名',
                           `email` varchar(128) NOT NULL COMMENT '职工邮箱',
+                          `phone` varchar(11) NOT NULL COMMENT '手机号',
                           `avatar` varchar(128) DEFAULT NULL COMMENT '职工头像',
                           `gender` tinyint(4) DEFAULT '0' COMMENT '性别 0:男性 1:女性 2:未知',
                           `status` tinyint(4) DEFAULT '0' COMMENT '在职状态 0:离职 1:在职',

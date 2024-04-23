@@ -19,6 +19,8 @@ public class Staff implements Serializable {
 
     private final String email;
 
+    private final String phone;
+
     private final String avatar;
 
     private final Integer gender;
@@ -44,6 +46,7 @@ public class Staff implements Serializable {
             String nickname,
             String realName,
             String email,
+            String phone,
             String avatar,
             Integer gender,
             StaffStatusEnum status,
@@ -59,6 +62,7 @@ public class Staff implements Serializable {
         this.nickname = nickname;
         this.realName = realName;
         this.email = email;
+        this.phone = phone;
         this.avatar = avatar;
         this.gender = gender;
         this.status = status;

@@ -2,12 +2,17 @@ package com.heartbeat.myapp.biz.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.heartbeat.myapp.biz.AccountService;
 import com.heartbeat.myapp.biz.DepartmentService;
 import com.heartbeat.myapp.biz.RoleService;
 import com.heartbeat.myapp.biz.StaffService;
 import com.heartbeat.myapp.constant.CommonConstant;
 import com.heartbeat.myapp.constant.StaffConstant;
+import com.heartbeat.myapp.dao.dataobject.StaffDO;
 import com.heartbeat.myapp.domain.model.Staff;
+import com.heartbeat.myapp.dp.StaffEmail;
+import com.heartbeat.myapp.dp.StaffPhone;
+import com.heartbeat.myapp.dp.Username;
 import com.heartbeat.myapp.dp.identifier.DepartmentId;
 import com.heartbeat.myapp.dp.identifier.RoleId;
 import com.heartbeat.myapp.dp.identifier.StaffId;
@@ -15,11 +20,13 @@ import com.heartbeat.myapp.dto.DepartmentDTO;
 import com.heartbeat.myapp.dto.RoleDTO;
 import com.heartbeat.myapp.dto.StaffBasicDTO;
 import com.heartbeat.myapp.dto.StaffDTO;
+import com.heartbeat.myapp.enums.StaffStatusEnum;
 import com.heartbeat.myapp.exception.BizException;
 import com.heartbeat.myapp.exception.errorcode.StaffErrorCode;
 import com.heartbeat.myapp.repository.StaffRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
 import com.heartbeat.myapp.web.param.StaffCreateParam;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +49,9 @@ public class StaffServiceImpl implements StaffService {
 
     @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
+    private AccountService accountService;
 
     @Override
     public StaffDTO getStaff(StaffId staffId) {
@@ -95,6 +105,25 @@ public class StaffServiceImpl implements StaffService {
     @Override
     @Transactional(rollbackFor = BizException.class)
     public Integer createStaffByManager(StaffCreateParam createParam, StaffId managerId) {
-        return 0;
+        StaffEmail staffEmail = new StaffEmail(createParam.getEmail());
+        if (staffEmail.isExist()) {
+        }
+        StaffPhone staffPhone = new StaffPhone(createParam.getPhone());
+        if (staffPhone.isExist()) {
+        }
+
+        StaffDO staffDO = new StaffDO();
+        BeanUtils.copyProperties(createParam, staffDO);
+        staffDO.setCreatorId(managerId.getValue());
+        staffDO.setOperatorId(managerId.getValue());
+        staffDO.setStatus(StaffStatusEnum.EMPLOYMENT.getValue());
+        StaffId staffId = repository.insert(staffDO);
+
+        Username username = new Username(createParam.getEmail());
+        if (username.isExist()) {
+        }
+        accountService.initStaffAccount(staffId, username);
+
+        return staffId.getValue();
     }
 }

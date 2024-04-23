@@ -19,6 +19,7 @@ public class StaffConverter {
                 staffDO.getNickname(),
                 staffDO.getRealName(),
                 staffDO.getEmail(),
+                staffDO.getPhone(),
                 staffDO.getAvatar(),
                 staffDO.getGender(),
                 StaffStatusEnum.toEnum(staffDO.getStatus()),

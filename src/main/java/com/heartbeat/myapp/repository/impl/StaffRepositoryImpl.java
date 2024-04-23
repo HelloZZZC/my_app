@@ -31,4 +31,10 @@ public class StaffRepositoryImpl implements StaffRepository {
 
         return ObjectUtils.isEmpty(staffDO) ? null : converter.toStaff(staffDO);
     }
+
+    @Override
+    public StaffId insert(StaffDO staffDO) {
+        mapper.insert(staffDO);
+        return new StaffId(staffDO.getId());
+    }
 }

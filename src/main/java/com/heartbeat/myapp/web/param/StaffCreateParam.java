@@ -21,6 +21,10 @@ public class StaffCreateParam implements Serializable {
     @Size(min = 1, max = 128, message = "邮箱长度必须在1到128个字符之间")
     private String email;
 
+    @NotNull
+    @Size(min = 11, max = 11, message = "手机号长度必须为11个字符")
+    private String phone;
+
     @Size(min = 1, max = 128, message = "头像链接长度必须在1到128个字符之间")
     private String avatar;
 
