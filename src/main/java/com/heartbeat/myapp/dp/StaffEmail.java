@@ -8,10 +8,10 @@ import java.io.Serializable;
 @Getter
 public class StaffEmail implements Serializable {
 
-    private final String email;
+    private final String value;
 
-    public StaffEmail(String email) {
-        this.email = email;
+    public StaffEmail(String value) {
+        this.value = value;
     }
 
     public Boolean isExist() {
