@@ -120,8 +120,6 @@ public class StaffServiceImpl implements StaffService {
         StaffId staffId = repository.insert(staffDO);
 
         Username username = new Username(createParam.getEmail());
-        if (username.isExist()) {
-        }
         accountService.initStaffAccount(staffId, username);
 
         return staffId.getValue();
