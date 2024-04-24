@@ -1,6 +1,7 @@
 package com.heartbeat.myapp.dp;
 
 import com.heartbeat.myapp.biz.AccountService;
+import com.heartbeat.myapp.dp.identifier.AccountId;
 import com.heartbeat.myapp.util.SpringContextUtil;
 import lombok.Getter;
 
@@ -19,6 +20,7 @@ public class Username implements Serializable {
     }
 
     public Boolean isExist() {
-        return Boolean.FALSE;
+        AccountId accountId = this.accountService.getAccountIdBy(this);
+        return accountId != null;
     }
 }

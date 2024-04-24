@@ -124,4 +124,14 @@ public class StaffServiceImpl implements StaffService {
 
         return staffId.getValue();
     }
+
+    @Override
+    public StaffId getStaffIdBy(StaffPhone staffPhone) {
+        return null;
+    }
+
+    @Override
+    public StaffId getStaffIdBy(StaffEmail staffEmail) {
+        return null;
+    }
 }

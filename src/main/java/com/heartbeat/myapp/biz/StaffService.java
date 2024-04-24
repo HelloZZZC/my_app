@@ -1,5 +1,7 @@
 package com.heartbeat.myapp.biz;
 
+import com.heartbeat.myapp.dp.StaffEmail;
+import com.heartbeat.myapp.dp.StaffPhone;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.dto.StaffBasicDTO;
 import com.heartbeat.myapp.dto.StaffDTO;
@@ -31,4 +33,20 @@ public interface StaffService {
      * @return 创建成功的职员ID
      */
     Integer createStaffByManager(StaffCreateParam createParam, StaffId managerId);
+
+    /**
+     * 根据手机号查询职工ID
+     *
+     * @param staffPhone 职工手机号
+     * @return 职工ID
+     */
+    StaffId getStaffIdBy(StaffPhone staffPhone);
+
+    /**
+     * 根据邮箱查询职工ID
+     *
+     * @param staffEmail 职工邮箱
+     * @return 职工ID
+     */
+    StaffId getStaffIdBy(StaffEmail staffEmail);
 }

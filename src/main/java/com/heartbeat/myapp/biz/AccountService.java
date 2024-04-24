@@ -1,6 +1,7 @@
 package com.heartbeat.myapp.biz;
 
 import com.heartbeat.myapp.dp.Username;
+import com.heartbeat.myapp.dp.identifier.AccountId;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 
 public interface AccountService {
@@ -12,4 +13,12 @@ public interface AccountService {
      * @param username 用户名
      */
     void initStaffAccount(StaffId staffId, Username username);
+
+    /**
+     * 根据用户名查询账号ID
+     *
+     * @param username 用户名
+     * @return 账号ID
+     */
+    AccountId getAccountIdBy(Username username);
 }
