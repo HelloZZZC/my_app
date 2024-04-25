@@ -12,7 +12,7 @@ public interface AccountService {
      * @param staffId 职工ID
      * @param username 用户名
      */
-    void initStaffAccount(StaffId staffId, Username username);
+    AccountId initStaffAccount(StaffId staffId, Username username);
 
     /**
      * 根据用户名查询账号ID

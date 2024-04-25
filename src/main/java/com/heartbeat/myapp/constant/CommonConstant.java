@@ -11,4 +11,9 @@ public class CommonConstant {
      * jwt token Header头
      */
     public static final String AUTHORIZATION_HEADER = "authorization";
+
+    /**
+     * 初始化职工账号默认密码
+     */
+    public static final String DEFAULT_ACCOUNT_PASSWORD = "123456";
 }

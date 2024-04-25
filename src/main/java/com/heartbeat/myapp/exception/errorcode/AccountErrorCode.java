@@ -3,23 +3,20 @@ package com.heartbeat.myapp.exception.errorcode;
 import com.heartbeat.myapp.exception.BizErrorCode;
 
 /**
- * 部门相关错误码
+ * 账号相关错误码
  * 项目编码：01
- * 模块编码：03
+ * 模块编码：06
  * 错误编号：0001 ~ 9999
  */
-public enum StaffErrorCode implements BizErrorCode {
+public enum AccountErrorCode implements BizErrorCode {
 
-    STAFF_NOT_FOUND("01030001", "系统职工不存在"),
-    STAFF_NOT_EMPLOYMENT("01030002", "系统职工状态非在职"),
-    STAFF_EMAIL_REPEAT("01030003", "存在重复的职工邮箱"),
-    STAFF_PHONE_REPEAT("01030004", "存在重复的职工手机号");
+    USERNAME_REPEAT("01060001", "存在重复的用户名");
 
     private final String message;
 
     private final String code;
 
-    StaffErrorCode(String code, String message) {
+    AccountErrorCode(String code, String message) {
         this.code = code;
         this.message = message;
     }

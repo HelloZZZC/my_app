@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.heartbeat.myapp.dao.dataobject.AccountDO;
 import com.heartbeat.myapp.dao.mapper.AccountMapper;
 import com.heartbeat.myapp.domain.model.Account;
+import com.heartbeat.myapp.dp.Username;
 import com.heartbeat.myapp.dp.identifier.AccountId;
 import com.heartbeat.myapp.repository.AccountRepository;
 import com.heartbeat.myapp.repository.converter.AccountConverter;
@@ -30,11 +31,26 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public Account getByUsername(String username) {
+    public Account getByUsername(Username username) {
         LambdaQueryWrapper<AccountDO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(AccountDO::getUsername, username);
+        queryWrapper.eq(AccountDO::getUsername, username.getValue());
         AccountDO accountDO = mapper.selectOne(queryWrapper);
 
         return ObjectUtils.isEmpty(accountDO) ? null : converter.toAccount(accountDO);
+    }
+
+    @Override
+    public AccountId getAccountIdBy(Username username) {
+        LambdaQueryWrapper<AccountDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AccountDO::getUsername, username.getValue());
+        AccountDO accountDO = mapper.selectOne(queryWrapper);
+
+        return ObjectUtils.isEmpty(accountDO) ? null : new AccountId(accountDO.getId());
+    }
+
+    @Override
+    public AccountId insert(AccountDO accountDO) {
+        mapper.insert(accountDO);
+        return new AccountId(accountDO.getId());
     }
 }

@@ -13,6 +13,7 @@ import com.heartbeat.myapp.domain.model.Staff;
 import com.heartbeat.myapp.dp.StaffEmail;
 import com.heartbeat.myapp.dp.StaffPhone;
 import com.heartbeat.myapp.dp.Username;
+import com.heartbeat.myapp.dp.identifier.AccountId;
 import com.heartbeat.myapp.dp.identifier.DepartmentId;
 import com.heartbeat.myapp.dp.identifier.RoleId;
 import com.heartbeat.myapp.dp.identifier.StaffId;
@@ -26,6 +27,7 @@ import com.heartbeat.myapp.exception.errorcode.StaffErrorCode;
 import com.heartbeat.myapp.repository.StaffRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
 import com.heartbeat.myapp.web.param.StaffCreateParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,7 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 @Service
+@Slf4j
 public class StaffServiceImpl implements StaffService {
 
     @Autowired
@@ -107,9 +110,11 @@ public class StaffServiceImpl implements StaffService {
     public Integer createStaffByManager(StaffCreateParam createParam, StaffId managerId) {
         StaffEmail staffEmail = new StaffEmail(createParam.getEmail());
         if (staffEmail.isExist()) {
+            throw new BizException(StaffErrorCode.STAFF_EMAIL_REPEAT);
         }
         StaffPhone staffPhone = new StaffPhone(createParam.getPhone());
         if (staffPhone.isExist()) {
+            throw new BizException(StaffErrorCode.STAFF_PHONE_REPEAT);
         }
 
         StaffDO staffDO = new StaffDO();
@@ -120,18 +125,19 @@ public class StaffServiceImpl implements StaffService {
         StaffId staffId = repository.insert(staffDO);
 
         Username username = new Username(createParam.getEmail());
-        accountService.initStaffAccount(staffId, username);
+        AccountId accountId = accountService.initStaffAccount(staffId, username);
+        log.info("初始化职工：{}账号成功，账号ID：{}", staffId.getValue(), accountId.getValue());
 
         return staffId.getValue();
     }
 
     @Override
     public StaffId getStaffIdBy(StaffPhone staffPhone) {
-        return null;
+        return repository.getStaffIdBy(staffPhone);
     }
 
     @Override
     public StaffId getStaffIdBy(StaffEmail staffEmail) {
-        return null;
+        return repository.getStaffIdBy(staffEmail);
     }
 }

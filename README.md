@@ -116,22 +116,23 @@
 
 #### 系统职工Table
 
-| 字段 | 类型 | Comment |
-| ---- | ---- | ---- |
-| id | bigint | 系统职工ID |
-| nickname | varchar | 职工昵称 |
-| real_name | varchar | 职工真名 |
-| email | varchar | 职工邮箱 |
-| avatar | varchar | 职工头像 |
-| gender | tinyint | 性别 0:男性 1:女性 2:未知 |
-| status | tinyint | 在职状态 0:离职 1:在职 |
-| roleId | bigint | 系统角色ID |
-| departmentId | bigint | 系统部门ID |
-| creator_id | bigint | 创建人ID |
-| create_time | datetime | 创建时间 |
-| operator_id | bigint | 最后操作人ID |
-| update_time | datetime | 更新时间 |
-| is_deleted | tinyint | 是否删除 0:否 1:是 |
+| 字段           | 类型 | Comment           |
+|--------------| ---- |-------------------|
+| id           | bigint | 系统职工ID            |
+| nickname     | varchar | 职工昵称              |
+| real_name    | varchar | 职工真名              |
+| email        | varchar | 职工邮箱              |
+| phone        | varchar | 职工手机号             |
+| avatar       | varchar | 职工头像              |
+| gender       | tinyint | 性别 0:男性 1:女性 2:未知 |
+| status       | tinyint | 在职状态 0:离职 1:在职    |
+| roleId       | bigint | 系统角色ID            |
+| departmentId | bigint | 系统部门ID            |
+| creator_id   | bigint | 创建人ID             |
+| create_time  | datetime | 创建时间              |
+| operator_id  | bigint | 最后操作人ID           |
+| update_time  | datetime | 更新时间              |
+| is_deleted   | tinyint | 是否删除 0:否 1:是      |
 
 #### 系统部门Table
 

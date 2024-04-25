@@ -5,6 +5,7 @@ import com.heartbeat.myapp.domain.model.Account;
 import com.heartbeat.myapp.domain.model.Staff;
 import com.heartbeat.myapp.dp.JwtTokenCache;
 import com.heartbeat.myapp.dp.Password;
+import com.heartbeat.myapp.dp.Username;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.exception.BizException;
 import com.heartbeat.myapp.exception.errorcode.AuthErrorCode;
@@ -28,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String login(LoginParam param) {
-        Account account = accountRepository.getByUsername(param.getUsername());
+        Account account = accountRepository.getByUsername(new Username(param.getUsername()));
         if (ObjectUtils.isEmpty(account)) {
             throw new BizException(AuthErrorCode.ACCOUNT_NOT_FOUND);
         }
