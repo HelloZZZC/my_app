@@ -22,8 +22,8 @@ public class StaffController {
     @GetMapping(value = "/info")
     @RequiresPermissions(value = "sys:staff:info")
     public ResponseUtil<String> info() {
-        StaffId currentStaffId = Objects.requireNonNull(AuthUtil.getCurrentStaffId());
-        return ResponseUtil.success(String.format("当前登录的职工ID: %d", currentStaffId.getValue()));
+        StaffId managerId = Objects.requireNonNull(AuthUtil.getCurrentStaffId());
+        return ResponseUtil.success(String.format("当前登录的职工ID: %d", managerId.getValue()));
     }
 
     @PostMapping(value = "/create")

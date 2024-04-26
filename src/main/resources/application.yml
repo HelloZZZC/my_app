@@ -49,3 +49,7 @@ shiro:
   jwt:
     ttl: 86400
     salt: J2i5W35FvjhxjLPR
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

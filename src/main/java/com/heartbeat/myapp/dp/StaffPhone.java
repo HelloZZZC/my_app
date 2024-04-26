@@ -28,8 +28,4 @@ public class StaffPhone implements Serializable {
         StaffId staffId = this.staffService.getStaffIdBy(this);
         return staffId != null && !staffId.equals(excludeStaffId);
     }
-
-    public String getMaskingValue() {
-        return this.value.substring(0, 3) + "****" + this.value.substring(7);
-    }
 }

@@ -3,7 +3,7 @@ package com.heartbeat.myapp.exception.errorcode;
 import com.heartbeat.myapp.exception.BizErrorCode;
 
 /**
- * 部门相关错误码
+ * 通用错误码
  * 项目编码：01
  * 模块编码：05
  * 错误编号：0001 ~ 9999

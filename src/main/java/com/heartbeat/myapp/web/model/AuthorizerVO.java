@@ -17,6 +17,8 @@ public class AuthorizerVO implements Serializable {
 
     private String email;
 
+    private String phone;
+
     private String avatar;
 
     private Integer gender;

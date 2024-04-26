@@ -1,5 +1,7 @@
 package com.heartbeat.myapp.domain.model;
 
+import com.heartbeat.myapp.dp.StaffEmail;
+import com.heartbeat.myapp.dp.StaffPhone;
 import com.heartbeat.myapp.dp.identifier.StaffId;
 import com.heartbeat.myapp.enums.DeletedEnum;
 import com.heartbeat.myapp.enums.StaffStatusEnum;
@@ -17,9 +19,9 @@ public class Staff implements Serializable {
 
     private final String realName;
 
-    private final String email;
+    private final StaffEmail email;
 
-    private final String phone;
+    private final StaffPhone phone;
 
     private final String avatar;
 
@@ -45,8 +47,8 @@ public class Staff implements Serializable {
             StaffId id,
             String nickname,
             String realName,
-            String email,
-            String phone,
+            StaffEmail email,
+            StaffPhone phone,
             String avatar,
             Integer gender,
             StaffStatusEnum status,

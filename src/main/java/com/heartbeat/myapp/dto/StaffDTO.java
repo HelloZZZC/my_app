@@ -26,6 +26,8 @@ public class StaffDTO extends StaffBasicDTO implements Serializable {
         StaffDTO staffDTO = new StaffDTO();
         BeanUtils.copyProperties(staff, staffDTO);
         staffDTO.setId(staff.getId().getValue());
+        staffDTO.setEmail(staff.getEmail().getValue());
+        staffDTO.setPhone(staff.getPhone().getValue());
         staffDTO.setRoleDTO(roleDTO);
         staffDTO.setDepartmentDTO(departmentDTO);
         staffDTO.setCreator(creator);
