@@ -15,6 +15,7 @@ import com.heartbeat.myapp.exception.BizException;
 import com.heartbeat.myapp.exception.errorcode.RoleErrorCode;
 import com.heartbeat.myapp.repository.RoleRepository;
 import com.heartbeat.myapp.util.RedissonCacheUtil;
+import com.heartbeat.myapp.util.SpringContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -31,9 +32,6 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RedissonCacheUtil redissonCacheUtil;
 
-    @Autowired
-    private StaffService staffService;
-
     @Override
     public RoleDTO getRole(RoleId roleId) {
         Role role = tryGetFromCache(roleId);
@@ -41,10 +39,10 @@ public class RoleServiceImpl implements RoleService {
             throw new BizException(RoleErrorCode.ROLE_NOT_FOUND, String.format("系统角色[id:%d]不存在",
                     roleId.getValue()));
         }
-        CompletableFuture<StaffBasicDTO> creatorFuture = CompletableFuture.supplyAsync(() -> staffService
-                .getStaffBasic(new StaffId(role.getCreatorId()))).exceptionally(e -> null);
-        CompletableFuture<StaffBasicDTO> operatorFuture = CompletableFuture.supplyAsync(() -> staffService
-                .getStaffBasic(new StaffId(role.getOperatorId()))).exceptionally(e -> null);
+        CompletableFuture<StaffBasicDTO> creatorFuture = CompletableFuture.supplyAsync(() -> SpringContextUtil.getBean(
+                StaffService.class).getStaffBasic(new StaffId(role.getCreatorId()))).exceptionally(e -> null);
+        CompletableFuture<StaffBasicDTO> operatorFuture = CompletableFuture.supplyAsync(() -> SpringContextUtil.getBean(
+                StaffService.class).getStaffBasic(new StaffId(role.getOperatorId()))).exceptionally(e -> null);
         CompletableFuture.allOf(creatorFuture, operatorFuture).join();
 
         return RoleDTO.transformBy(role, creatorFuture.join(), operatorFuture.join());
